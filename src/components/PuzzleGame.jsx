@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import confetti from "canvas-confetti";
 import { motion } from "framer-motion";
+import TopAd from "./TopAd";
+import BottomAd from "./BottomAd";
 
 export default function PuzzleGame() {
     const { levelId: levelParam } = useParams();
@@ -564,94 +566,98 @@ export default function PuzzleGame() {
     }
 
     return (
-        <div className="relative flex flex-col lg:flex-row justify-center items-center gap-4 p-4">
-            {/* Back Button */}
-            <div
-                onClick={() => navigate("/levels")}
-                className="absolute top-3 left-3 bg-black/60 text-white px-2 py-1 rounded-lg shadow-lg cursor-pointer hover:bg-black/80 transition text-sm sm:text-base"
-            >
-                ⬅ Back
-            </div>
-
-            {/* Top Right Info */}
-            <div className="absolute top-3 right-3 bg-black/60 text-white px-3 py-1.5 rounded-lg shadow-lg text-xs sm:text-sm">
-                <p>Level: {currentLevel}</p>
-                <p>Coins: {coins} 🪙</p>
-            </div>
-
-            {/* Full Image */}
-            <div className="flex flex-col items-center justify-center w-full p-2 space-y-4">
-
-                {/* Full Image Preview */}
-                <div className="w-full max-w-[350px] sm:max-w-[400px] aspect-square border rounded-xl shadow-lg overflow-hidden">
-                    <img
-                        src={imageUrl}
-                        alt="full"
-                        className="w-full h-full object-cover object-center transition-transform duration-300 hover:scale-105"
-                    />
+        <>
+        <TopAd/>
+            <div className="relative flex flex-col lg:flex-row justify-center items-center gap-4 p-4">
+                {/* Back Button */}
+                <div
+                    onClick={() => navigate("/levels")}
+                    className="absolute top-3 left-3 bg-black/60 text-white px-2 py-1 rounded-lg shadow-lg cursor-pointer hover:bg-black/80 transition text-sm sm:text-base"
+                >
+                    ⬅ Back
                 </div>
 
-                {/* Puzzle Grid */}
-                <div className="w-full max-w-[350px] sm:max-w-[600px] aspect-square grid grid-cols-3 gap-2 sm:gap-3">
-                    {tiles.map((tile, i) => (
-                        <div
-                            key={i}
-                            className={`relative flex items-center justify-center cursor-pointer rounded-lg overflow-hidden shadow-md transition-transform duration-200
+                {/* Top Right Info */}
+                <div className="absolute top-3 right-3 bg-black/60 text-white px-3 py-1.5 rounded-lg shadow-lg text-xs sm:text-sm">
+                    <p>Level: {currentLevel}</p>
+                    <p>Coins: {coins} 🪙</p>
+                </div>
+
+                {/* Full Image */}
+                <div className="flex flex-col items-center justify-center w-full p-2 space-y-4">
+
+                    {/* Full Image Preview */}
+                    <div className="w-full max-w-[350px] sm:max-w-[400px] aspect-square border rounded-xl shadow-lg overflow-hidden">
+                        <img
+                            src={imageUrl}
+                            alt="full"
+                            className="w-full h-full object-cover object-center transition-transform duration-300 hover:scale-105"
+                        />
+                    </div>
+
+                    {/* Puzzle Grid */}
+                    <div className="w-full max-w-[350px] sm:max-w-[600px] aspect-square grid grid-cols-3 gap-2 sm:gap-3">
+                        {tiles.map((tile, i) => (
+                            <div
+                                key={i}
+                                className={`relative flex items-center justify-center cursor-pointer rounded-lg overflow-hidden shadow-md transition-transform duration-200
           ${tile.id === null
-                                    ? "bg-gradient-to-br from-gray-900 to-gray-700 border border-gray-600"
-                                    : "bg-white hover:scale-105"
-                                }`}
-                            style={
-                                tile.id !== null
-                                    ? { backgroundImage: `url(${tile.imageUrl})`, backgroundSize: "cover", backgroundPosition: "center" }
-                                    : {}
-                            }
-                            onClick={() => moveTile(i)}
-                        >
-                            {/* Hint Overlay */}
-                            {hintIndex === i && (
-                                <span className="absolute inset-0 flex items-center justify-center">
-                                    <span className="absolute w-full h-full rounded-lg bg-blue-600/50 animate-ping"></span>
-                                </span>
-                            )}
+                                        ? "bg-gradient-to-br from-gray-900 to-gray-700 border border-gray-600"
+                                        : "bg-white hover:scale-105"
+                                    }`}
+                                style={
+                                    tile.id !== null
+                                        ? { backgroundImage: `url(${tile.imageUrl})`, backgroundSize: "cover", backgroundPosition: "center" }
+                                        : {}
+                                }
+                                onClick={() => moveTile(i)}
+                            >
+                                {/* Hint Overlay */}
+                                {hintIndex === i && (
+                                    <span className="absolute inset-0 flex items-center justify-center">
+                                        <span className="absolute w-full h-full rounded-lg bg-blue-600/50 animate-ping"></span>
+                                    </span>
+                                )}
 
-                            {/* Tile Number */}
-                            {tile.id !== null && (
-                                <span className="absolute top-1 right-1 text-xs sm:text-sm font-semibold bg-white/80 text-black px-2 py-0.5 rounded-md shadow">
-                                    {tile.id + 1}
-                                </span>
-                            )}
-                        </div>
-                    ))}
+                                {/* Tile Number */}
+                                {tile.id !== null && (
+                                    <span className="absolute top-1 right-1 text-xs sm:text-sm font-semibold bg-white/80 text-black px-2 py-0.5 rounded-md shadow">
+                                        {tile.id + 1}
+                                    </span>
+                                )}
+                            </div>
+                        ))}
+                    </div>
                 </div>
-            </div>
 
 
-            {/* Celebration Modal */}
-            {
-                showCelebration && (
-                    <motion.div
-                        className="fixed inset-0 bg-black/60 flex items-center justify-center z-50"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                    >
+                {/* Celebration Modal */}
+                {
+                    showCelebration && (
                         <motion.div
-                            className="bg-white rounded-2xl p-4 sm:p-6 text-center shadow-lg w-[90%] max-w-md"
-                            initial={{ scale: 0.5 }}
-                            animate={{ scale: 1 }}
-                            transition={{ type: "spring", stiffness: 120 }}
+                            className="fixed inset-0 bg-black/60 flex items-center justify-center z-50"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
                         >
-                            <h2 className="text-xl sm:text-3xl font-bold text-green-600 mb-2">
-                                🎉 Level {currentLevel} Complete!
-                            </h2>
-                            <p className="text-sm sm:text-lg text-gray-700">+10 coins earned!</p>
-                            <p className="mt-2 text-gray-500 text-xs sm:text-sm">
-                                Next level starting in 3 seconds...
-                            </p>
+                            <motion.div
+                                className="bg-white rounded-2xl p-4 sm:p-6 text-center shadow-lg w-[90%] max-w-md"
+                                initial={{ scale: 0.5 }}
+                                animate={{ scale: 1 }}
+                                transition={{ type: "spring", stiffness: 120 }}
+                            >
+                                <h2 className="text-xl sm:text-3xl font-bold text-green-600 mb-2">
+                                    🎉 Level {currentLevel} Complete!
+                                </h2>
+                                <p className="text-sm sm:text-lg text-gray-700">+10 coins earned!</p>
+                                <p className="mt-2 text-gray-500 text-xs sm:text-sm">
+                                    Next level starting in 3 seconds...
+                                </p>
+                            </motion.div>
                         </motion.div>
-                    </motion.div>
-                )
-            }
-        </div >
+                    )
+                }
+            </div>
+        <BottomAd/>
+        </>
     );
 }
