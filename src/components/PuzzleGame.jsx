@@ -567,7 +567,7 @@ export default function PuzzleGame() {
 
     return (
         <>
-        <TopAd/>
+            <TopAd />
             <div className="relative flex flex-col lg:flex-row justify-center items-center gap-4 p-4">
                 {/* Back Button */}
                 <div
@@ -600,14 +600,17 @@ export default function PuzzleGame() {
                         {tiles.map((tile, i) => (
                             <div
                                 key={i}
-                                className={`relative flex items-center justify-center cursor-pointer rounded-lg overflow-hidden shadow-md transition-transform duration-200
-          ${tile.id === null
-                                        ? "bg-gradient-to-br from-gray-900 to-gray-700 border border-gray-600"
-                                        : "bg-white hover:scale-105"
+                                className={`relative flex items-center justify-center cursor-pointer rounded-lg overflow-hidden shadow-md transition-transform duration-200 ${tile.id === null
+                                    ? "bg-gradient-to-br from-gray-900 to-gray-700 border border-gray-600"
+                                    : "bg-white hover:scale-105"
                                     }`}
                                 style={
                                     tile.id !== null
-                                        ? { backgroundImage: `url(${tile.imageUrl})`, backgroundSize: "cover", backgroundPosition: "center" }
+                                        ? {
+                                            backgroundImage: `url(${tile.imageUrl})`,
+                                            backgroundSize: "cover",
+                                            backgroundPosition: "center",
+                                        }
                                         : {}
                                 }
                                 onClick={() => moveTile(i)}
@@ -630,34 +633,32 @@ export default function PuzzleGame() {
                     </div>
                 </div>
 
-
                 {/* Celebration Modal */}
-                {
-                    showCelebration && (
+                {showCelebration && (
+                    <motion.div
+                        className="fixed inset-0 bg-black/60 flex items-center justify-center z-50"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                    >
                         <motion.div
-                            className="fixed inset-0 bg-black/60 flex items-center justify-center z-50"
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
+                            className="bg-white rounded-2xl p-4 sm:p-6 text-center shadow-lg w-[90%] max-w-md"
+                            initial={{ scale: 0.5 }}
+                            animate={{ scale: 1 }}
+                            transition={{ type: "spring", stiffness: 120 }}
                         >
-                            <motion.div
-                                className="bg-white rounded-2xl p-4 sm:p-6 text-center shadow-lg w-[90%] max-w-md"
-                                initial={{ scale: 0.5 }}
-                                animate={{ scale: 1 }}
-                                transition={{ type: "spring", stiffness: 120 }}
-                            >
-                                <h2 className="text-xl sm:text-3xl font-bold text-green-600 mb-2">
-                                    🎉 Level {currentLevel} Complete!
-                                </h2>
-                                <p className="text-sm sm:text-lg text-gray-700">+10 coins earned!</p>
-                                <p className="mt-2 text-gray-500 text-xs sm:text-sm">
-                                    Next level starting in 3 seconds...
-                                </p>
-                            </motion.div>
+                            <h2 className="text-xl sm:text-3xl font-bold text-green-600 mb-2">
+                                🎉 Level {currentLevel} Complete!
+                            </h2>
+                            <p className="text-sm sm:text-lg text-gray-700">+10 coins earned!</p>
+                            <p className="mt-2 text-gray-500 text-xs sm:text-sm">
+                                Next level starting in 3 seconds...
+                            </p>
                         </motion.div>
-                    )
-                }
+                    </motion.div>
+                )}
             </div>
-        <BottomAd/>
+
+            <BottomAd />
         </>
     );
 }

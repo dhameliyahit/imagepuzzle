@@ -8,8 +8,8 @@ export default function TopAd() {
     }, []);
 
     return (
-        <ins class="adsbygoogle"
-            style="display:block"
+        <ins className="adsbygoogle"
+            style={{display:"block"}}
             data-ad-client="ca-pub-6594004239342534"
             data-ad-slot="5465972648"
             data-ad-format="auto"
