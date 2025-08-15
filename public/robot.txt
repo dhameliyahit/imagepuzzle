@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://hdmaster.netlify.app/sitemap.xml

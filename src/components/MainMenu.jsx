@@ -10,7 +10,7 @@ export default function MainMenu() {
 
       {/* Game Title */}
       <h1 className="text-4xl sm:text-6xl font-extrabold text-white text-center drop-shadow-[0_0_20px_rgba(0,0,0,0.8)] animate-fade-in">
-        🎯 Image Puzzle Master
+        🎯 HD Master
       </h1>
 
       {/* Menu Buttons */}
