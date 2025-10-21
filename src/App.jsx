@@ -46,6 +46,7 @@ export default function App() {
             element={<Settings onBackgroundChange={handleBackgroundChange} />}
           />
           <Route path="/play/:levelId" element={<PuzzleGame />} />
+          <Route path="/*" element={<h1>404 Page Not FOund!!</h1>} />
         </Routes>
       </Router>
     </div>
